@@ -9,14 +9,14 @@ $credentials    = new \Aws\Credentials\Credentials($awsAccessKeyId, $awsSecretKe
 $client_polly         = new \Aws\Polly\PollyClient([
   'version'     => '2016-06-10',
   'credentials' => $credentials,
-  'region'      => 'us-east-1',
+  'region'      => 'us-east-1'
 ]);
 
 $result_polly         = $client_polly->synthesizeSpeech([
   'OutputFormat' => 'mp3',
   'Text'         => "Hello, this is an example PHP script which saves an mp3 file created by AWS Polly to your choosen S3 bucket.",
   'TextType'     => 'text',
-  'VoiceId'      => 'Amy',
+  'VoiceId'      => 'Amy'
 ]);
 
 #Returned audio data
@@ -34,12 +34,12 @@ $client_s3 = new Aws\S3\S3Client([
 ]);
 
 $result_s3 = $client_s3->putObject([
-  'Key' => $filename,
-  'ACL' => 'public-read',
-  'Body' => $resultData_polly,
-  'Bucket' => $s3bucket,
+  'Key'         => $filename,
+  'ACL'         => 'public-read',
+  'Body'        => $resultData_polly,
+  'Bucket'      => $s3bucket,
   'ContentType' => 'audio/mpeg',
-  'SampleRate' => '8000'
+  'SampleRate'  => '8000'
 ]);
 
 ?>
