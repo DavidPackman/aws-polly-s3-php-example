@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Submit Form Using AJAX and jQuery</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script>
+         $(document).ready(function(){
+         $("#submit").click(function(){
+         var text = $("#text").val();
+         var dataString = 'ptext='+ text;
+         if(text=='')
+         {
+           alert("Please Fill All Fields");
+         }
+         else
+         {
+         // This code submits the form
+         $.ajax({
+           type: "POST",
+           url: "pollysubmit.php",
+           data: dataString,
+           cache: false,
+           success: function(result){
+           // Plays the mp3 at the returned URL
+           var audioElement = document.createElement('audio');
+           audioElement.setAttribute('src', result);
+           audioElement.play();
+         }
+         });
+         }
+           return false;
+         });
+         });
+      </script>
+   </head>
+   <body>
+      <div id="mainform">
+         <h2>Submit string for polly processing.</h2>
+         <div id="form">
+            <h3>Enter you text!</h3>
+            <div>
+               <label>Text :</label>
+               <input id="text" type="text">
+               <input id="submit" type="button" value="Submit">
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
